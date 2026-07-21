@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Editkaro.in</title>
+<meta name="description" content="Selected video editing work by Editkaro.in — short form, long form, gaming, football, eCommerce, documentary, color grading, anime and ads.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   EDITKARO.IN — PORTFOLIO (standalone slice)
+   This file is a self-contained excerpt of the full site: just the tokens,
+   nav shell, theme toggle and portfolio section, so it can be submitted or
+   reviewed on its own ahead of the full build.
+   ========================================================================== */
+:root{
+  --bg: #0B0B0B;
+  --bg-rgb: 11,11,11;
+  --bg-raised: #101010;
+  --card: #161616;
+  --text: #FFFFFF;
+  --text-secondary: #B8B8B8;
+  --text-muted: #6E6E6E;
+  --accent: #FF3D3D;
+  --accent-hover: #FF6868;
+  --accent-dim: rgba(255,61,61,0.14);
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.16);
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --font-display: 'Unbounded', system-ui, sans-serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Space Mono', 'SFMono-Regular', monospace;
+
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --container: 1220px;
+  color-scheme: dark;
+}
+
+html[data-theme="light"]{
+  --bg: #F6F5F2;
+  --bg-rgb: 246,245,242;
+  --bg-raised: #FFFFFF;
+  --card: #FFFFFF;
+  --text: #121212;
+  --text-secondary: #4A4A4A;
+  --text-muted: #8A8A85;
+  --accent: #E1281F;
+  --accent-hover: #C71F17;
+  --accent-dim: rgba(225,40,31,0.10);
+  --border: rgba(0,0,0,0.09);
+  --border-strong: rgba(0,0,0,0.18);
+  color-scheme: light;
+}
+
+*,*::before,*::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; background: var(--bg); }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+body{
+  margin:0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  transition: background-color .5s var(--ease-out), color .5s var(--ease-out);
+}
+img{ max-width: 100%; display:block; }
+a{ color: inherit; text-decoration: none; }
+button{ font-family: inherit; cursor: pointer; }
+::selection{ background: var(--accent); color: #fff; }
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.container{ width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+h1,h2,h3{ font-family: var(--font-display); font-weight: 700; margin: 0; line-height: 1.08; letter-spacing: -0.01em; }
+p{ margin: 0; }
+
+.rec-dot{
+  width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+  display:inline-block; box-shadow: 0 0 0 0 rgba(255,61,61,.6);
+  animation: rec-pulse 1.8s ease-in-out infinite;
+}
+@keyframes rec-pulse{
+  0%{ box-shadow: 0 0 0 0 rgba(255,61,61,.55); }
+  70%{ box-shadow: 0 0 0 8px rgba(255,61,61,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(255,61,61,0); }
+}
+.eyebrow{
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-secondary); display:flex; align-items:center; gap:8px; margin-bottom: 18px;
+}
+
+/* fade-up reveal (JS toggles .is-visible) */
+.fade-up{ opacity:0; transform: translateY(34px); transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
+.fade-up.is-visible{ opacity:1; transform: translateY(0); }
+
+/* ==========================================================================
+   NAV (minimal — logo + theme toggle only, for the standalone slice)
+   ========================================================================== */
+.nav{
+  padding: 22px 0 60px;
+}
+.nav__inner{
+  max-width: var(--container); margin: 0 auto; padding: 0 32px;
+  display:flex; align-items:center; justify-content:space-between; gap: 24px;
+}
+.nav__logo{
+  font-family: var(--font-display); font-weight: 700; font-size: 17px;
+  letter-spacing: 0.01em; display:flex; align-items:center; gap:10px;
+}
+.nav__logo-dot{ color: var(--accent); }
+
+.theme-toggle{
+  position: relative; width: 44px; height: 26px; border-radius: var(--radius-pill);
+  background: var(--bg-raised); border: 1px solid var(--border-strong);
+  padding: 2px; display:flex; align-items:center; flex-shrink:0;
+  transition: background .3s ease, border-color .3s ease;
+}
+.theme-toggle:hover{ border-color: var(--text-secondary); }
+.theme-toggle__thumb{
+  position:absolute; top:2px; left:2px; width: 20px; height:20px; border-radius:50%;
+  background: var(--accent); display:flex; align-items:center; justify-content:center; color:#fff;
+  transform: translateX(0); transition: transform .35s var(--ease-out), background .3s ease;
+}
+html[data-theme="light"] .theme-toggle__thumb{ transform: translateX(18px); }
+.theme-toggle__thumb svg{ width:12px; height:12px; }
+.theme-toggle__thumb svg.icon-sun{ display:none; }
+html[data-theme="light"] .theme-toggle__thumb svg.icon-moon{ display:none; }
+html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
+
+/* ==========================================================================
+   Section shell
+   ========================================================================== */
+.section{ padding: 0 0 130px; position:relative; }
+.section__head{ margin-bottom: 60px; max-width: 640px; }
+.section__title{ font-size: clamp(30px, 4.2vw, 48px); }
+
+/* ==========================================================================
+   PORTFOLIO
+   ========================================================================== */
+.filter-bar{
+  display:flex; flex-wrap: nowrap; gap:10px; margin-bottom: 44px;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; -ms-overflow-style: none;
+  cursor: grab;
+  padding: 4px 28px 4px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4px, #000 calc(100% - 36px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 4px, #000 calc(100% - 36px), transparent 100%);
+}
+.filter-bar::-webkit-scrollbar{ display:none; }
+.filter-bar.is-dragging{ cursor: grabbing; scroll-snap-type: none; }
+.filter-bar.fade-up{ transform: translateX(-48px); }
+.filter-bar.fade-up.is-visible{ transform: translateX(0); }
+.filter-pill{
+  flex: 0 0 auto; scroll-snap-align: start;
+  background: transparent; border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  font-family: var(--font-mono); font-size: 12.5px; letter-spacing:.03em;
+  padding: 9px 18px; border-radius: var(--radius-pill);
+  white-space: nowrap;
+  transition: all .3s var(--ease-out);
+}
+.filter-pill:hover{ color: var(--text); border-color: var(--text-secondary); }
+.filter-pill.is-active{ background: var(--accent); border-color: var(--accent); color:#fff; }
+
+.portfolio-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.portfolio-card{
+  position: relative; display: block; border-radius: var(--radius-lg);
+  overflow:hidden; aspect-ratio: 4/5; border: 1px solid var(--border); cursor: pointer;
+  transition: transform .5s var(--ease-out), opacity .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+.portfolio-card:hover{
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+  box-shadow: 0 20px 40px -20px rgba(0,0,0,.6);
+}
+.portfolio-card.card--wide{ aspect-ratio: 8/5; }
+.portfolio-card.is-hidden{ display:none; }
+
+.portfolio-card__accent{
+  position:absolute; top:0; left:0; right:0; height:3px;
+  transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease-out);
+  z-index: 2;
+}
+.portfolio-card:hover .portfolio-card__accent{ transform: scaleX(1); }
+
+.portfolio-card__thumb-wrap{ position:absolute; inset:0; background: var(--card); overflow:hidden; }
+.portfolio-card__thumb{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit: cover; object-position: center;
+  filter: brightness(.82) saturate(1);
+  transform: scale(1.001);
+  transition: transform .6s var(--ease-out), filter .5s ease;
+}
+.portfolio-card:hover .portfolio-card__thumb{ transform: scale(1.09); filter: brightness(.55) saturate(1.15); }
+
+
+.portfolio-card__scan{
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 19%, rgba(255,255,255,0.05) 19% 20%);
+  opacity:0; transition: opacity .3s ease; pointer-events:none;
+}
+.portfolio-card:hover .portfolio-card__scan{ opacity:1; }
+
+.portfolio-card__overlay{
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.88) 100%);
+  display:flex; flex-direction:column; justify-content:flex-end; padding: 20px;
+}
+.portfolio-card__top{
+  position:absolute; top:16px; left:16px; right:16px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.portfolio-card__cat{
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing:.08em; text-transform:uppercase;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+  padding: 6px 11px; border-radius: var(--radius-pill); border: 1px solid rgba(255,255,255,0.14);
+}
+.portfolio-card__duration{
+  font-family: var(--font-mono); font-size: 10.5px;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+  padding: 6px 10px; border-radius: var(--radius-pill); border: 1px solid rgba(255,255,255,0.14);
+}
+.portfolio-card__play{
+  position:absolute; top:50%; left:50%; transform: translate(-50%,-50%) scale(.7);
+  width: 56px; height:56px; border-radius:50%;
+  background: rgba(255,255,255,0.14); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.35);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition: opacity .35s ease, transform .35s var(--ease-out);
+}
+.portfolio-card:hover .portfolio-card__play{ opacity:1; transform: translate(-50%,-50%) scale(1); }
+.portfolio-card__play svg{ margin-left:2px; }
+.portfolio-card__title{ font-family: var(--font-display); font-size: 17px; font-weight:600; margin-bottom:4px; color:#fff; }
+.portfolio-card__meta{ font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,.72); }
+
+@media (max-width: 960px){ .portfolio-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px){ .portfolio-grid{ grid-template-columns: 1fr; } .nav{ padding-bottom: 40px; } }
+
+.footer-note{
+  text-align:center; padding: 40px 0 0; color: var(--text-muted);
+  font-family: var(--font-mono); font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">
+      <span class="rec-dot" aria-hidden="true"></span>
+      EDITKARO<span class="nav__logo-dot">.in</span>
+    </a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
+      <span class="theme-toggle__thumb">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M4.22 4.22l1.77 1.77M18 18l1.78 1.78M2 12h2.5M19.5 12H22M4.22 19.78L6 18M18 6l1.78-1.78" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ PORTFOLIO ============ -->
+  <section class="section" id="portfolio">
+    <div class="container">
+      <div class="section__head fade-up">
+        <p class="eyebrow">Selected work</p>
+        <h2 class="section__title">Nine formats. <br>One editing standard.</h2>
+      </div>
+
+      <div class="filter-bar fade-up" id="filterBar" role="tablist" aria-label="Filter portfolio by category">
+        <button class="filter-pill is-active" data-filter="all" role="tab" aria-selected="true">All Work</button>
+        <button class="filter-pill" data-filter="short-form" role="tab" aria-selected="false">Short Form</button>
+        <button class="filter-pill" data-filter="long-form" role="tab" aria-selected="false">Long Form</button>
+        <button class="filter-pill" data-filter="gaming" role="tab" aria-selected="false">Gaming</button>
+        <button class="filter-pill" data-filter="football" role="tab" aria-selected="false">Football</button>
+        <button class="filter-pill" data-filter="ecommerce" role="tab" aria-selected="false">eCommerce</button>
+        <button class="filter-pill" data-filter="documentary" role="tab" aria-selected="false">Documentary</button>
+        <button class="filter-pill" data-filter="color-grading" role="tab" aria-selected="false">Color Grading</button>
+        <button class="filter-pill" data-filter="anime" role="tab" aria-selected="false">Anime</button>
+        <button class="filter-pill" data-filter="ads" role="tab" aria-selected="false">Ads</button>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid">
+        <!-- injected by JS from PROJECTS data -->
+      </div>
+    </div>
+  </section>
+
+  <p class="footer-note">EDITKARO.in — portfolio excerpt · <span id="footerYear"></span></p>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const $  = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* THEME — light/dark toggle, defaults to system preference */
+  const themeToggle = $('#themeToggle');
+  const root = document.documentElement;
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  const applyTheme = (theme) => {
+    root.setAttribute('data-theme', theme);
+    themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
+    themeToggle.setAttribute('aria-label', theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+  };
+  applyTheme(prefersLight ? 'light' : 'dark');
+  themeToggle.addEventListener('click', () => {
+    applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  });
+
+  /* REVEAL — fade/slide elements into view on scroll */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  $$('.fade-up').forEach((el) => revealObserver.observe(el));
+
+  /* PORTFOLIO DATA — swap in your real project URLs/titles here */
+  // TODO: titles below are placeholders — tell Claude the real titles for
+  // each video (or edit them yourself) and swap in real durations once known.
+  const PROJECTS = [
+    { title: 'Short Form Edit',      cat: 'short-form',    label: 'Short Form',    duration: '00:30', hue: 355, wide: false, url: 'https://youtu.be/DiZnbihU4NM' },
+    { title: 'Long Form Feature',    cat: 'long-form',      label: 'Long Form',     duration: '18:00', hue: 355, wide: true,  url: 'https://youtu.be/uJFrAlOdeX0' },
+    { title: 'Gaming Highlights',    cat: 'gaming',          label: 'Gaming',        duration: '00:50', hue: 268, wide: false, url: 'https://youtu.be/x5wndRdBowo' },
+    { title: 'Football Highlights',  cat: 'football',        label: 'Football',      duration: '02:00', hue: 150, wide: false, url: 'https://youtu.be/Re5h6K17MUM' },
+    { title: 'Product Launch Ad',    cat: 'ecommerce',       label: 'eCommerce',     duration: '00:25', hue: 24,  wide: false, url: 'https://youtu.be/wZuGGZG9PwQ' },
+    { title: 'Documentary Feature',  cat: 'documentary',     label: 'Documentary',   duration: '10:00', hue: 40,  wide: true,  url: 'https://youtu.be/M6rKtOVridE' },
+    { title: 'Color Grade Pass',     cat: 'color-grading',   label: 'Color Grading', duration: '01:00', hue: 174, wide: false, url: 'https://youtu.be/ChxDEAN8EtY' },
+    { title: 'Anime Edit',           cat: 'anime',           label: 'Anime',         duration: '00:55', hue: 292, wide: false, url: 'https://youtu.be/00zT--4tP5Y' },
+    { title: 'Ad Campaign Cut',      cat: 'ads',              label: 'Ads',           duration: '00:15', hue: 355, wide: false, url: 'https://youtu.be/aP2up9N6H-g' },
+    { title: 'Short Form Reel',      cat: 'short-form',      label: 'Short Form',    duration: '00:40', hue: 200, wide: false, url: 'https://youtube.com/shorts/Kx9ORrCiOE8' },
+    { title: 'Long Form Recap',      cat: 'long-form',       label: 'Long Form',     duration: '20:00', hue: 355, wide: false, url: 'https://youtu.be/Dt-glL6hP40' },
+    { title: 'Gaming Session Cut',   cat: 'gaming',           label: 'Gaming',        duration: '01:10', hue: 268, wide: true,  url: 'https://youtu.be/ykm4WyrEYXw' },
+  ];
+
+  const grid = $('#portfolioGrid');
+  const playIconSVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 5.5v9l7.5-4.5-7.5-4.5z" fill="#fff"/></svg>`;
+
+  // Pull the 11-char YouTube video ID out of any common URL shape.
+  const getYouTubeId = (url) => {
+    const m = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/);
+    return m ? m[1] : null;
+  };
+
+  const renderPortfolio = () => {
+    grid.innerHTML = PROJECTS.map((p) => {
+      const id = getYouTubeId(p.url);
+      // hqdefault always exists for a public video; maxresdefault only
+      // exists if the uploader provided an HD thumbnail, so we try that
+      // first and quietly fall back to hqdefault if it 404s.
+      const thumb = id ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : '';
+      const fallback = id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '';
+      return `
+      <a class="portfolio-card fade-up${p.wide ? ' card--wide' : ''}" data-cat="${p.cat}" href="${p.url}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${p.title}, ${p.label}, duration ${p.duration} (opens on YouTube)">
+        <div class="portfolio-card__thumb-wrap">
+          <img class="portfolio-card__thumb" src="${thumb}" data-fallback="${fallback}" alt="${p.title} — video thumbnail" loading="lazy" onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback}">
+        </div>
+        <div class="portfolio-card__scan"></div>
+        <div class="portfolio-card__top">
+          <span class="portfolio-card__cat">${p.label}</span>
+          <span class="portfolio-card__duration">${p.duration}</span>
+        </div>
+        <div class="portfolio-card__play">${playIconSVG}</div>
+        <div class="portfolio-card__overlay">
+          <div class="portfolio-card__title">${p.title}</div>
+          <div class="portfolio-card__meta">Edited by Editkaro — ${p.label}</div>
+        </div>
+      </a>
+    `;
+    }).join('');
+
+    $$('.portfolio-card').forEach((card) => revealObserver.observe(card));
+  };
+  renderPortfolio();
+
+  /* FILTER BAR — sliding strip: drag/wheel to scroll, click a pill to filter */
+  const filterBar = $('#filterBar');
+
+  filterBar.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    e.preventDefault();
+    filterBar.scrollLeft += e.deltaY;
+  }, { passive: false });
+
+  let isDragging = false, dragStartX = 0, dragScrollStart = 0, dragMoved = false;
+  filterBar.addEventListener('mousedown', (e) => {
+    isDragging = true; dragMoved = false;
+    dragStartX = e.pageX;
+    dragScrollStart = filterBar.scrollLeft;
+    filterBar.classList.add('is-dragging');
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const delta = e.pageX - dragStartX;
+    if (Math.abs(delta) > 4) dragMoved = true;
+    filterBar.scrollLeft = dragScrollStart - delta;
+  });
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    filterBar.classList.remove('is-dragging');
+  });
+
+  filterBar.addEventListener('click', (e) => {
+    if (dragMoved) { dragMoved = false; return; }
+    const btn = e.target.closest('.filter-pill');
+    if (!btn) return;
+    $$('.filter-pill', filterBar).forEach((b) => {
+      b.classList.remove('is-active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    btn.classList.add('is-active');
+    btn.setAttribute('aria-selected', 'true');
+
+    const filter = btn.dataset.filter;
+    $$('.portfolio-card').forEach((card) => {
+      const match = filter === 'all' || card.dataset.cat === filter;
+      card.classList.toggle('is-hidden', !match);
+    });
+  });
+
+  $('#footerYear').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

@@ -11,12 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-/* ==========================================================================
-   EDITKARO.IN — PORTFOLIO (standalone slice)
-   This file is a self-contained excerpt of the full site: just the tokens,
-   nav shell, theme toggle and portfolio section, so it can be submitted or
-   reviewed on its own ahead of the full build.
-   ========================================================================== */
 :root{
   --bg: #0B0B0B;
   --bg-rgb: 11,11,11;
@@ -95,13 +89,10 @@ p{ margin: 0; }
   color: var(--text-secondary); display:flex; align-items:center; gap:8px; margin-bottom: 18px;
 }
 
-/* fade-up reveal (JS toggles .is-visible) */
+
 .fade-up{ opacity:0; transform: translateY(34px); transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
 .fade-up.is-visible{ opacity:1; transform: translateY(0); }
 
-/* ==========================================================================
-   NAV (minimal — logo + theme toggle only, for the standalone slice)
-   ========================================================================== */
 .nav{
   padding: 22px 0 60px;
 }
@@ -133,16 +124,11 @@ html[data-theme="light"] .theme-toggle__thumb{ transform: translateX(18px); }
 html[data-theme="light"] .theme-toggle__thumb svg.icon-moon{ display:none; }
 html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
 
-/* ==========================================================================
-   Section shell
-   ========================================================================== */
+
 .section{ padding: 0 0 130px; position:relative; }
 .section__head{ margin-bottom: 60px; max-width: 640px; }
 .section__title{ font-size: clamp(30px, 4.2vw, 48px); }
 
-/* ==========================================================================
-   PORTFOLIO
-   ========================================================================== */
 .filter-bar{
   display:flex; flex-wrap: nowrap; gap:10px; margin-bottom: 44px;
   overflow-x: auto; overflow-y: hidden;
@@ -267,7 +253,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
 </header>
 
 <main>
-  <!-- ============ PORTFOLIO ============ -->
   <section class="section" id="portfolio">
     <div class="container">
       <div class="section__head fade-up">
@@ -289,7 +274,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
       </div>
 
       <div class="portfolio-grid" id="portfolioGrid">
-        <!-- injected by JS from PROJECTS data -->
       </div>
     </div>
   </section>
@@ -304,7 +288,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* THEME — light/dark toggle, defaults to system preference */
   const themeToggle = $('#themeToggle');
   const root = document.documentElement;
   const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -318,7 +301,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
     applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
   });
 
-  /* REVEAL — fade/slide elements into view on scroll */
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -329,9 +311,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
   }, { threshold: 0.15 });
   $$('.fade-up').forEach((el) => revealObserver.observe(el));
 
-  /* PORTFOLIO DATA — swap in your real project URLs/titles here */
-  // TODO: titles below are placeholders — tell Claude the real titles for
-  // each video (or edit them yourself) and swap in real durations once known.
   const PROJECTS = [
     { title: 'Short Form Edit',      cat: 'short-form',    label: 'Short Form',    duration: '00:30', hue: 355, wide: false, url: 'https://youtu.be/DiZnbihU4NM' },
     { title: 'Long Form Feature',    cat: 'long-form',      label: 'Long Form',     duration: '18:00', hue: 355, wide: true,  url: 'https://youtu.be/uJFrAlOdeX0' },
@@ -350,7 +329,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
   const grid = $('#portfolioGrid');
   const playIconSVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 5.5v9l7.5-4.5-7.5-4.5z" fill="#fff"/></svg>`;
 
-  // Pull the 11-char YouTube video ID out of any common URL shape.
   const getYouTubeId = (url) => {
     const m = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/);
     return m ? m[1] : null;
@@ -359,9 +337,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
   const renderPortfolio = () => {
     grid.innerHTML = PROJECTS.map((p) => {
       const id = getYouTubeId(p.url);
-      // hqdefault always exists for a public video; maxresdefault only
-      // exists if the uploader provided an HD thumbnail, so we try that
-      // first and quietly fall back to hqdefault if it 404s.
       const thumb = id ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : '';
       const fallback = id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '';
       return `
@@ -387,7 +362,6 @@ html[data-theme="light"] .theme-toggle__thumb svg.icon-sun{ display:block; }
   };
   renderPortfolio();
 
-  /* FILTER BAR — sliding strip: drag/wheel to scroll, click a pill to filter */
   const filterBar = $('#filterBar');
 
   filterBar.addEventListener('wheel', (e) => {
